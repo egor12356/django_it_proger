@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
@@ -9,9 +11,16 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ['title']
+        verbose_name = 'Категория(ю)'
+        verbose_name_plural = 'Категории'
+
+
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=50)
@@ -39,3 +48,5 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['title']
+        verbose_name = 'Статья(ю)'
+        verbose_name_plural = 'Статьи'

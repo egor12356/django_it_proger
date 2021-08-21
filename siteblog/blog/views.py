@@ -5,3 +5,8 @@ from django.shortcuts import render
 
 def index(requests):
     return render(requests, 'blog/index.html')
+
+
+
+def get_category(requests):
+    return render(requests, 'blog/category.html')
