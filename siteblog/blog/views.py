@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import *
+from django.db.models import F
 
 # Create your views here.
 
@@ -46,3 +47,21 @@ class PostByCategory(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = Category.objects.get(slug=self.kwargs['slug'])
         return context
+
+
+class GetPost(DetailView):
+    model = Post
+    template_name = 'blog/single.html'
+    context_object_name = 'post'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Увеличиваем число просмотров
+        self.object.views = F('views') + 1
+        self.object.save()
+        self.object.refresh_from_db()
+        return context
+
+
+
+class PostByTag(ListView):
+    pass
