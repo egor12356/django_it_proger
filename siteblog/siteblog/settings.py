@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'testapp.apps.TestappConfig',
     'debug_toolbar',
     'ckeditor',
+    'mptt',
 ]
 
 MIDDLEWARE = [
